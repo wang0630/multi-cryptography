@@ -31,13 +31,13 @@ class Symmetric3Des(SymmetricBase):
                 except ValueError as e:
                     # regenerate key
                     self.key = get_random_bytes(24)
+
+            # Need to create two cipher context for enc and dec
+            self.encryptor = DES3.new(self.key, DES3.MODE_CTR, nonce=b'')
+            # Decryptor must use the same nonce(or iv) as the encryptor
+            self.decryptor = DES3.new(self.key, DES3.MODE_CTR, nonce=self.encryptor.nonce)
         else:
             raise TypeError(f'Mode {mode} is not supported')
-
-        # Need to create two cipher context for enc and dec
-        self.encryptor = DES3.new(self.key, DES3.MODE_CTR, nonce=b'')
-        # Decryptor must use the same nonce(or iv) as the encryptor
-        self.decryptor = DES3.new(self.key, DES3.MODE_CTR, nonce=self.encryptor.nonce)
 
     def encrypt_ctr(self, file_path):
         ciphertext = []
