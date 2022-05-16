@@ -3,8 +3,6 @@ from Crypto.Cipher import DES3
 from Crypto.Random import get_random_bytes
 from .symmetric_base import *
 
-#
-
 
 class Symmetric3Des(SymmetricBase):
     def __init__(self, mode):
