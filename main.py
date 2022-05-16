@@ -2,7 +2,6 @@ import symmetric as sym
 import datetime
 
 if __name__ == '__main__':
-    # modes_op = ['CTR']
     modes_op = ['CBC', 'CTR']
     for mode in modes_op:
         aes = sym.SymmetricAes(mode)
